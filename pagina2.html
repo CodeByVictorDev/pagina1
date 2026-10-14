@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>¿Qué tan rápido eres?</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: sans-serif; margin: 0; height: 100vh; display: flex; flex-direction: column; color: #fff; background: #111827; user-select: none; }
+        #zona { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 1rem; cursor: pointer; transition: background 0.15s; }
+        #zona.espera { background: #b91c1c; }
+        #zona.ya { background: #16a34a; }
+        #zona.inicio, #zona.resultado { background: #1e3a8a; }
+        #titulo { font-size: 2.4rem; font-weight: bold; margin: 0 0 0.5rem; }
+        #sub { font-size: 1.2rem; opacity: 0.9; margin: 0; }
+        #rango { font-size: 1.5rem; margin-top: 1rem; }
+        footer { background: #0b1220; padding: 0.8rem; display: flex; justify-content: space-around; font-size: 0.95rem; color: #cbd5e1; }
+        footer b { color: #fde047; }
+    </style>
+</head>
+<body>
+    <div id="zona" class="inicio">
+        <p id="titulo">⚡ ¿Qué tan rápido eres?</p>
+        <p id="sub">Haz clic para empezar. Cuando la pantalla se ponga verde, ¡clic lo más rápido que puedas!</p>
+        <p id="rango"></p>
+    </div>
+    <footer>
+        <span>Último: <b id="ultimo">-</b></span>
+        <span>Mejor: <b id="mejor">-</b></span>
+        <span>Promedio: <b id="promedio">-</b></span>
+    </footer>
+
+    <script>
+        const zona = document.getElementById('zona');
+        const titulo = document.getElementById('titulo');
+        const sub = document.getElementById('sub');
+        const rango = document.getElementById('rango');
+        let estado = 'inicio';
+        let temporizador, momentoVerde;
+        const tiempos = [];
+
+        function rangoDe(ms) {
+            if (ms < 200) return '🐆 Nivel guepardo';
+            if (ms < 250) return '🥷 Reflejos de ninja';
+            if (ms < 300) return '🙂 Nada mal';
+            if (ms < 400) return '🐢 Tortuga con prisa';
+            return '🦥 ¿Seguías despierto?';
+        }
+
+        function cambiar(nuevo, t, s, r = '') {
+            estado = nuevo;
+            zona.className = nuevo;
+            titulo.innerText = t;
+            sub.innerText = s;
+            rango.innerText = r;
+        }
+
+        function esperar() {
+            cambiar('espera', 'Espera...', 'Todavía no hagas clic');
+            const demora = 1500 + Math.random() * 3000;
+            temporizador = setTimeout(() => {
+                cambiar('ya', '¡YA!', 'Clic, clic, clic');
+                momentoVerde = performance.now();
+            }, demora);
+        }
+
+        zona.addEventListener('mousedown', manejar);
+        zona.addEventListener('touchstart', e => { e.preventDefault(); manejar(); });
+
+        function manejar() {
+            if (estado === 'inicio' || estado === 'resultado') {
+                esperar();
+            } else if (estado === 'espera') {
+                clearTimeout(temporizador);
+                cambiar('resultado', '😅 ¡Te adelantaste!', 'Haz clic para intentarlo otra vez');
+            } else if (estado === 'ya') {
+                const ms = Math.round(performance.now() - momentoVerde);
+                tiempos.push(ms);
+                const mejor = Math.min(...tiempos);
+                const prom = Math.round(tiempos.reduce((a, b) => a + b, 0) / tiempos.length);
+                document.getElementById('ultimo').innerText = ms + ' ms';
+                document.getElementById('mejor').innerText = mejor + ' ms';
+                document.getElementById('promedio').innerText = prom + ' ms';
+                cambiar('resultado', ms + ' ms', 'Haz clic para intentarlo otra vez', rangoDe(ms));
+            }
+        }
+    </script>
+</body>
+</html>

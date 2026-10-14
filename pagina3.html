@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>¿Qué como hoy?</title>
+    <style>
+        body { font-family: sans-serif; background: #1c1917; color: #fef3c7; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: #292524; padding: 2rem; border-radius: 16px; border: 2px solid #f59e0b; text-align: center; width: 320px; }
+        #plato { font-size: 1.6rem; font-weight: bold; color: #fbbf24; margin: 1.5rem 0; min-height: 3.5rem; }
+        button { background: #f59e0b; color: #1c1917; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; }
+        button:hover { background: #d97706; }
+        small { display: block; margin-top: 1rem; color: #a8a29e; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>🌮 ¿Qué como hoy?</h2>
+        <div id="plato">Haz clic para decidir</div>
+        <button onclick="elegir()">Elegir por mí</button>
+        <small id="contador">Decisiones tomadas: 0</small>
+    </div>
+
+    <script>
+        const platos = [
+            "Tacos de asada 🌮",
+            "Burritos de machaca 🌯",
+            "Pizza 🍕",
+            "Hamburguesa 🍔",
+            "Sushi 🍣",
+            "Sopa de fideo 🍜",
+            "Quesadillas 🧀"
+        ];
+        let veces = 0;
+
+        function elegir() {
+            const i = Math.floor(Math.random() * platos.length);
+            veces++;
+            document.getElementById('plato').innerText = platos[i];
+            document.getElementById('contador').innerText = `Decisiones tomadas: ${veces}`;
+        }
+    </script>
+</body>
+</html>

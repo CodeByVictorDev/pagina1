@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Generador de Excusas</title>
+    <style>
+        body { font-family: sans-serif; background: #0f172a; color: #f8fafc; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .card { background: #1e293b; padding: 2rem; border-radius: 12px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.3); max-width: 400px; }
+        button { background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-top: 1rem; font-weight: bold; }
+        button:hover { background: #2563eb; }
+        #excuse { margin-top: 1.5rem; font-style: italic; color: #93c5fd; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>¿Qué pasó con el código?</h2>
+        <button onclick="generarExcusa()">Dame una excusa</button>
+        <p id="excuse">Haz clic para descubrir por qué no sirve tu código hoy.</p>
+    </div>
+
+    <script>
+        const excusas = [
+            "Funcionaba en mi máquina local, la nube tiene envidia.",
+            "Fue culpa de un rayo cósmico que alteró un bit en la memoria RAM.",
+            "El compilador tuvo un mal día existencial.",
+            "Eso no es un bug, es una característica no documentada.",
+            "Seguro fue el último update de dependencias que rompió el metaverso."
+        ];
+        function generarExcusa() {
+            const index = Math.floor(Math.random() * excusas.length);
+            document.getElementById('excuse').innerText = `"${excusas[index]}"`;
+        }
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Clima en Marte</title>
+    <style>
+        body { font-family: sans-serif; background: #2b1d12; color: #ffedd5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .widget { background: #432818; padding: 2rem; border-radius: 16px; border: 2px solid #ea580c; text-align: center; width: 300px; }
+        .temp { font-size: 3rem; font-weight: bold; color: #fb923c; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="widget">
+        <h2>🚀 Cráter Gale, Marte</h2>
+        <p>Sol 3450</p>
+        <div class="temp">-63°C</div>
+        <p>Tormenta de polvo moderada 🌪️</p>
+        <small>Presión: 710 Pa</small>
+    </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Contador de Croquetas</title>
+    <style>
+        body { font-family: sans-serif; background: #fdf4ff; color: #701a75; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .box { background: #fae8ff; padding: 2rem; border-radius: 20px; text-align: center; border: 2px dashed #d946ef; }
+        button { background: #d946ef; color: white; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 1rem; margin: 5px; }
+        button:hover { background: #c026d3; }
+        #count { font-size: 2.5rem; font-weight: bold; margin: 10px 0; color: #a21caf; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>🐱 Veces que el gato ha exigido comida</h2>
+        <div id="count">0</div>
+        <button onclick="cambiar(1)">¡Otra vez!</button>
+        <button onclick="cambiar(-1)">Mentira, fue menos</button>
+    </div>
+
+    <script>
+        let count = 0;
+        function cambiar(val) {
+            count = Math.max(0, count + val);
+            document.getElementById('count').innerText = count;
+        }
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8";>
+    <title>Reloj Minimal</title>
+    <style>
+        body { font-family: monospace; background: #000; color: #00ff66; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .clock { font-size: 4rem; letter-spacing: 2px; text-shadow: 0 0 10px rgba(0,255,102,0.5); }
+        .date { font-size: 1.2rem; color: #008833; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="clock" id="reloj">00:00:00</div>
+    <div class="date" id="fecha">Cargando fecha...</div>
+
+    <script>
+        function actualizar() {
+            const now = new Date();
+            document.getElementById('reloj').innerText = now.toLocaleTimeString();
+            document.getElementById('fecha').innerText = now.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        }
+        setInterval(actualizar, 1000);
+        actualizar();
+    </script>
+</body>
+</html>
